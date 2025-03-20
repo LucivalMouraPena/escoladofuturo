@@ -1,0 +1,8 @@
+*.pyc
+__pycache__/
+escoladofuturo_env/
+db.sqlite3
+.DS_Store
+*.log
+*.swp
+*.swo
