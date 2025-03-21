@@ -14,4 +14,4 @@ class ProfessorAdmin(admin.ModelAdmin):
 
 admin.site.register(Aluno, AlunoAdmin)
 admin.site.register(Turma, TurmaAdmin)
-admin.site.register(Professores, ProfessorAdmin)
+admin.site.register(Professor, ProfessorAdmin)

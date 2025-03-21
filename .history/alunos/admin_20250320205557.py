@@ -10,8 +10,8 @@ class TurmaAdmin(admin.ModelAdmin):
     form = TurmaForm
 
 class ProfessorAdmin(admin.ModelAdmin):
-    form = ProfessoresForm
+    form = ProfessorForm
 
 admin.site.register(Aluno, AlunoAdmin)
 admin.site.register(Turma, TurmaAdmin)
-admin.site.register(Professores, ProfessorAdmin)
+admin.site.register(Professor, ProfessorAdmin)

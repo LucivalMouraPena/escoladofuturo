@@ -20,7 +20,7 @@ class Aluno(models.Model):
 class Turma(models.Model):
     nome = models.CharField(max_length=50)
     serie = models.CharField(max_length=20)
-    professor_responsavel = models.ForeignKey('Professores', on_delete=models.SET_NULL, null=True, blank=True)
+    professor_responsavel = models.ForeignKey('Professor', on_delete=models.SET_NULL, null=True, blank=True)
     horario_aula = models.CharField(max_length=100)
 
     def __str__(self):
@@ -34,9 +34,8 @@ class Professores(models.Model):
     email = models.EmailField(unique=True)
     formacao_academica = models.CharField(max_length=200)
     disciplinas_lecionadas = models.CharField(max_length=200)
-
     class Meta:
-        verbose_name_plural = 'Professores'
+        verbose_name_plural = 'Professores' name
 
     def __str__(self):
         return self.nome_completo
