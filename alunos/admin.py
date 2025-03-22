@@ -1,28 +1,38 @@
 from django.contrib import admin
-from .models import Aluno, Turma, Professores
-from .forms import AlunoForm, TurmaForm, ProfessoresForm
 
+from .models import Aluno, Turma, Professores, Disciplina, Matricula
+
+@admin.register(Aluno)
 class AlunoAdmin(admin.ModelAdmin):
-    form = AlunoForm
-    list_filter = ('data_nascimento', 'disciplinas_lecionadas')
+    list_display = ('nome', 'data_nascimento', 'cpf', 'email')
+    list_filter = ['nome', 'disciplinas'] # Modificação aqui
     search_fields = ('nome', 'cpf', 'email')
-    list_display = ('nome', 'cpf', 'email', 'data_nascimento')
 
+@admin.register(Turma)
 class TurmaAdmin(admin.ModelAdmin):
-    form = TurmaForm
-    list_filter = ('serie', 'professor_responsavel')
-    search_fields = ('nome', 'serie', 'professor_responsavel__nome_completo')
-    list_display = ('nome', 'serie', 'professor_responsavel')
+    list_display = ('nome', 'serie', 'professor_responsavel', 'horario_aula')
+    list_filter = ['nome', 'serie', 'professor_responsavel']
+    search_fields = ('nome', 'serie')
     related_lookup_fields = {
-        'professor_responsavel': ('nome_completo',),
+        'fk': ['professor_responsavel'],
     }
 
+@admin.register(Professores)
 class ProfessorAdmin(admin.ModelAdmin):
-    form = ProfessoresForm
-    list_filter = ('formacao_academica', 'disciplinas_lecionadas')
-    search_fields = ('nome_completo', 'cpf', 'email')
     list_display = ('nome_completo', 'cpf', 'email', 'formacao_academica')
+    list_filter = ['nome_completo', 'disciplinas'] # Modificação aqui
+    search_fields = ('nome_completo', 'cpf', 'email')
 
-admin.site.register(Aluno, AlunoAdmin)
-admin.site.register(Turma, TurmaAdmin)
-admin.site.register(Professores, ProfessorAdmin)
+@admin.register(Disciplina)
+class DisciplinaAdmin(admin.ModelAdmin):
+    list_display = ('nome',)
+    search_fields = ('nome',)
+
+@admin.register(Matricula)
+class MatriculaAdmin(admin.ModelAdmin):
+    list_display = ('aluno', 'turma', 'data_matricula')
+    list_filter = ['turma']
+    search_fields = ['aluno__nome', 'turma__nome']
+    related_lookup_fields = {
+        'fk': ['aluno', 'turma'],
+    }
